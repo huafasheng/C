@@ -1,1 +1,1 @@
-单文件C语言，包括C语言练习，leetcode刷题等
+单文件C语言，包括C语言练习，leetcode刷题
