@@ -23,8 +23,25 @@ stackPointer createStack(){
     return sp;
 }
 void Push(stackPointer S,ElemType elem){
+
     stackPointer sp = (stackPointer*) malloc(sizeof(linkedList));
     sp->data = elem;
-    sp->next = S;
-    return sp;
+    sp->next = S->next;
+    S->next = sp;
+}
+
+
+ElemType Pop(stackPointer S){
+    ElemType result;
+    result = S->data;
+    S = S->next;
+    return result;
+}
+
+int isEmpty(stackPointer S){
+    return (S->next == NULL);
+    
+}
+int isFull(stackPointer S,int size){
+
 }
