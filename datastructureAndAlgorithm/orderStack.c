@@ -23,10 +23,7 @@ int main(){
     printf("%d",Pop(sp));
     Push(sp,5);
     isFull(sp,5);
-    isEmpty(sp);
-    
-
-
+    isEmpty(sp);    
 }
 stackPointer createStack(int size){
     stackPointer sp = (stackPointer) malloc(sizeof(stack));
@@ -35,11 +32,10 @@ stackPointer createStack(int size){
     return sp;
 }
 int isFull(stackPointer S,int size){
-    if(S->top == size-1){
+    if(S->top == size){
         return 1;    
         }
         return 0;
-
 }
 void Push(stackPointer S,ElemType elem){
     if(isFull(S,4)){
@@ -47,23 +43,16 @@ void Push(stackPointer S,ElemType elem){
     }
     *(S->data+S->top) = elem;
     S->top++;
-   
-
-
 }
 int isEmpty(stackPointer S){
     if(S->top == 0){
         return 1;
     }
     return 0;
-
 }
 ElemType Pop(stackPointer S){
     ElemType a= *(S->data+ S->top-1);
     *(S->data+ S->top-1) =0;
     S->top--;
     return a;
-
-
-
 }
