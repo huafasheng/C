@@ -41,20 +41,30 @@ bsTreePointer insert(elemType X,bsTreePointer bstPointer){
 }
 
 bsTreePointer delete(elemType X,bsTreePointer bstPointer){
+    bsTreePointer tmp;
     if(!bstPointer){
         printf("The tree is null!");
         return NULL;
-    }else if (X>bstPointer->element)
+    }else if (X<bstPointer->element)
     {
         bstPointer->left = delete(X,bstPointer->left);
-    }else if(X<bstPointer->right){
+    }else if(X>bstPointer->right){
         bstPointer->right = delete(X,bstPointer->right);
     }else{
         if(bstPointer->left&&bstPointer->right){
-
+            tmp = findMin(bstPointer->element,bstPointer->right);
+            bstPointer->element = tmp->element;
+            bstPointer->right = delete(bstPointer->element,bstPointer->right);
+        }
+        else{
+          tmp = bstPointer;
+          if(!bstPointer->left){
+            bstPointer = bstPointer->right;
+          }else{
+            bstPointer = bstPointer->left;
+          }
+          free(tmp);
         }
     }
-    
-
-
+    return bstPointer;
 }
