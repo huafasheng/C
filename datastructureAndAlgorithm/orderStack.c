@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include"orderStack.h"
 #define  Maxsize 10
 typedef int ElemType;
 typedef struct
