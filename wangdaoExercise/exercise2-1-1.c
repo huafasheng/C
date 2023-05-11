@@ -95,14 +95,22 @@ bool deletemin(ListPointer L,ElemType *x){
     }
   } 
   *x = e;
-    for(int k=index;k<L->len;k++){
-        L->data[k] = L->data[k+1];
-        L->len--;
-    }
+   L->data[index] = L->data[L->len-1];
     return true;
 }
 //王道考研第2题
 //设计一个高效算法，将顺序表L的所有元素逆置，要求算法的空间复杂度为O（1）；
+bool reverseList(ListPointer L){
+	if(L->len%2 == 0){
+		int right = L->len/2;
+		int left = (L->len+1)/2;
+		for (size_t i = 0; i < L->len/2; i++)
+		{
+			/* code */
+		}
+		
+	}
+}
 //王道考研第3题
 //对于长度为n的顺序表，编写一个时间复杂度O（n）、空间复杂度为O（1）的算法，该算法删除线性表中所有值为x的数据元素。
 //王道考研第4题
