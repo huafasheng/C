@@ -16,17 +16,25 @@ void Insert(ElemType X,int i,ListPointer L);
 void Delete(int i,ListPointer L);
 int Length(ListPointer L);
 bool deletemin(ListPointer L,ElemType *x);
+bool reverseList(ListPointer L);
+bool deleteX(ListPointer L,ElemType x);
+bool deleteRangeValue(ListPointer L,ElemType s,ElemType t);
 int main(){
  	ListPointer Lp = MakeEmpty();
     ElemType* x = (ElemType*) malloc(sizeof(ElemType));
-	Insert(5,1,Lp);
+	Insert(1,1,Lp);
 	Insert(2,2,Lp);
 	Insert(3,3,Lp);
-	Insert(5,2,Lp);
-	Insert(4,5,Lp);
-    Insert(1,5,Lp);
-    deletemin(Lp,x);
+	Insert(4,4,Lp);
+	Insert(5,5,Lp);
+    Insert(6,6,Lp);
+	Insert(7,7,Lp);
+	Insert(8,8,Lp);
+	Insert(9,9,Lp);
+    reverseList(Lp);
+	deleteRangeValue(Lp,2,5);
 	Length(Lp);
+	deleteX(Lp,4);
 
 
 }
@@ -103,24 +111,140 @@ bool deletemin(ListPointer L,ElemType *x){
 bool reverseList(ListPointer L){
 	if(L->len%2 == 0){
 		int right = L->len/2;
-		int left = (L->len+1)/2;
+		int left = (L->len-1)/2;
 		for (size_t i = 0; i < L->len/2; i++)
 		{
-			/* code */
+			ElemType temp = L->data[left-i];
+			L->data[left-i]  = L->data[right+i];
+			L->data[right+i] = temp;
+			 /* code */
 		}
-		
+	}else{
+		int mid = L->len/2;
+		for (size_t i = 1; i < L->len/2+1; i++)
+		{
+			ElemType temp = L->data[mid-i];
+			L->data[mid-i]  = L->data[mid+i];
+			L->data[mid+i] = temp;
+		}
 	}
+	return true;
 }
 //王道考研第3题
 //对于长度为n的顺序表，编写一个时间复杂度O（n）、空间复杂度为O（1）的算法，该算法删除线性表中所有值为x的数据元素。
+bool deleteX(ListPointer L,ElemType x){
+	int i = 0,k = 0;
+	while (i<L->len)
+	{
+	    if(L->data[i]== x){
+			k++;
+		}else{
+			L->data[i-k] = L->data[i];
+		}
+		i++;
+	}
+	L->len = L->len-k;
+	return true; 
+}
 //王道考研第4题
 //从有序顺序表中删除值在给定值S与t之间的所有元素，若S或t不合理或顺序表为空，则显示出错信息并退出运行。
+bool deleteRangeValue(ListPointer L,ElemType s,ElemType t){
+	if(L->len == 0 ||s>t){
+		printf("this list is empty");
+		return false;
+	}
+	int j = 0,k = 0;
+	for (size_t i = 0; i < L->len; i++)
+	{
+		if (L->data[i]<s)
+		{
+			j++;
+		}
+		if(t<L->data[i]){
+			k++;
+		}
+	}
+	if(j>k){
+		j++;
+		for (size_t i = k+1; i < L->len; i++)
+		{
+			
+			L->data[j++] = L->data[i];
+
+		}
+	}else{
+		k++;
+		for (size_t i = j+1; i < L->len; i++)
+		{
+			
+			L->data[k++] = L->data[i];
+
+		}
+	}
+	
+	return true; 
+}
 //王道考研第5题
 //从顺序表中删除值在给定值S与t之间的所有元素，若S或t不合理或顺序表为空，则显示出错信息并退出运行。
+bool deleteOrderRangeValue(ListPointer L,ElemType s,ElemType t){
+	if(L->len == 0 ||t<s){
+		printf("this list is empty");
+		return false;
+	}
+	int i = 0,k = 0;
+	while (i<L->len)
+	{
+	    if(s<=L->data[i]&&L->data[i] <=t){
+			k++;
+		}else{
+			L->data[i-k] = L->data[i];
+		}
+	}
+	L->len = L->len-k;
+	return true; 
+}
 //王道考研第6题
 //从顺序表中删除所有值重复的元素，使表的所有元素均不同。
+bool deleteRepeat(ListPointer lp){
+	for (size_t i = 0; i < lp->len; i++)
+	{
+		for (size_t j = 0; j < lp->len; j++)
+		{
+			if(lp->data[i]==lp->data[j]){
+				for (size_t k = j; k < lp->len; k++)
+				{
+					lp->data[k] = lp->data[k+1];
+				}
+				lp->len = lp->len--;
+				
+			}
+			/* code */
+		}
+		
+		/* code */
+	}
+	return true;
+	
+}
 //王道考研第7题
 //将两个有序顺序表合并为一个新的有序顺序表，并由函数返回结果顺序表。
+void mergeTwoList(ListPointer l1,ListPointer l2){
+	ListPointer l = makeEmpty();
+	for (size_t i = 0; i < l1->len; i++)
+	{
+		for (size_t j = 0; j < l2->len; j++)
+		{
+			if()
+
+			}
+		}
+		
+
+	}
+	
+
+
+}
 //王道考研第8题
 //已知在一堆数据A[m+n]中依次存放两个线性表（a1,a2,a3,……，an）和（b1,b2,b3,……，bn）。试编写一个函数，将数组中两个顺序表的位置互换，即将（b1,b2,b3,……，bn）放到（a1,a2,a3,……，an）前面。
 //王道考研第9题
