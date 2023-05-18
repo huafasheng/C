@@ -109,23 +109,34 @@ bool deletemin(ListPointer L,ElemType *x){
 //王道考研第2题
 //设计一个高效算法，将顺序表L的所有元素逆置，要求算法的空间复杂度为O（1）；
 bool reverseList(ListPointer L){
-	if(L->len%2 == 0){
-		int right = L->len/2;
-		int left = (L->len+1)/2;
-		for (size_t i = 0; i < L->len/2; i++)
-		{
-			/* code */
-		}
-	}else{
-		int mid = L->len/2;
-		for (size_t i = 1; i < L->len/2+1; i++)
-		{
-			ElemType temp = L->data[mid-i];
-			L->data[mid-i]  = L->data[mid+i];
-			L->data[mid+i] = temp;
-		}
+	//自己解法,没有归纳
+	// if(L->len%2 == 0){
+	// 	int right = L->len/2;
+	// 	int left = (L->len+1)/2;
+	// 	for (size_t i = 0; i < L->len/2; i++)
+	// 	{
+	// 		ElemType temp = L->data[left-i];
+	// 		L->data[left-i]  = L->data[right+i];
+	// 		L->data[rigth+i] = temp;
+	// 		/* code */
+	// 	}
+	// }else{
+	// 	int mid = L->len/2;
+	// 	for (size_t i = 1; i < L->len/2+1; i++)
+	// 	{
+	// 		ElemType temp = L->data[mid-i];
+	// 		L->data[mid-i]  = L->data[mid+i];
+	// 		L->data[mid+i] = temp;
+	// 	}
+	// }
+	// return true;
+	for (size_t i = 0; i < L->len/2; i++)
+	{
+	 ElemType temp = L->data[i];
+	 L->data[i] = L->data[L->len-1-i];
+	 L->data[L->len-1-i] = temp;
 	}
-	return true;
+	
 }
 //王道考研第3题
 //对于长度为n的顺序表，编写一个时间复杂度O（n）、空间复杂度为O（1）的算法，该算法删除线性表中所有值为x的数据元素。
@@ -225,33 +236,121 @@ bool deleteRepeat(ListPointer lp){
 }
 //王道考研第7题
 //将两个有序顺序表合并为一个新的有序顺序表，并由函数返回结果顺序表。
-// void mergeTwoList(ListPointer l1,ListPointer l2){
-// 	ListPointer l = makeEmpty();
-// 	for (size_t i = 0; i < l1->len; i++)
-// 	{
-// 		for (size_t j = 0; j < l2->len; j++)
-// 		{
-// 			if()
-
-// 			}
-// 		}
-		
-
-// 	}
+bool mergeTwoList(ListPointer l1,ListPointer l2){
+	ListPointer l = MakeEmpty();
+	if(Maxsize<(l1->len+l2->len)){
+		printf("this length sum is over maxsize");
+		return false;
+	}
+	int i = 0;
+	int j = 0;
+	int k=0;
+	while (i<l1->len &&j<l2->len)
+	{
+		if(l1->data[i]<l2->data[j]){
+			l->data[k++] = l2->data[j++]; 
+		}else{
+			l->data[k++] = l1->data[i++];
+		}
+		/* code */
+	}
+	while(i<l1->len){
+		l->data[k++] = l1->data[i++];
+	}
+	while(j<l2->len){
+		l->data[k++] = l2->data[j++];
+	}
+	
+	}
 	
 
 
 // }
 //王道考研第8题
-//已知在一堆数据A[m+n]中依次存放两个线性表（a1,a2,a3,……，an）和（b1,b2,b3,……，bn）。试编写一个函数，将数组中两个顺序表的位置互换，即将（b1,b2,b3,……，bn）放到（a1,a2,a3,……，an）前面。
+//已知在一堆数据A[m+n]中依次存放两个线性表（a1,a2,a3,……，am）和（b1,b2,b3,……，bn）。试编写一个函数，将数组中两个顺序表的位置互换，即将（b1,b2,b3,……，bn）放到（a1,a2,a3,……，am）前面。
+bool changeEach(ListPointer L,int m,int n){
+	for (size_t i = 0; i < L->len/2; i++)
+	{
+	 ElemType temp = L->data[i];
+	 L->data[i] = L->data[L->len-1-i];
+	 L->data[L->len-1-i] = temp;
+	}
+	for (size_t i = 0; i < n; i++)
+	{
+	 ElemType temp = L->data[i];
+	 L->data[i] = L->data[n-1-i];
+	 L->data[n-1-i] = temp;
+	}
+	for (size_t i = n; i < L->len; i++)
+	{
+	 ElemType temp = L->data[i];
+	 L->data[i] = L->data[L->len-1-i];
+	 L->data[L->len-1-i] = temp;
+	}
+	return true;
+	
+	
+}
 //王道考研第9题
 //线性表（a1,a2,a3,……，an）中的元素递增有序且按顺序存储于计算机内，要求设计一个算法，完成用最少时间在表中查询数值为X的元素，若找到，则将其与后继元素位置相交换。若找不到，则将其插入表中并使表中元素递增有序。
+bool query(ListPointer L,int X){
+	int i =L->len/2;
+	int right = L->len-1;
+	int left  = 0;
+	int s = 0;
+	while (left<=right)
+	{
+		i = (left+right)/2;
+		if(X>L->data[i] == X){
+			return true;
+			break;
+		}else if(X>L->data[i]){
+			left = i+1;
+		}else{
+			right = i-1; 
+		}
+	}
+	if(left<=right){
+		int temp = L->data[i+1];
+		L->data[i+1] = X;
+		L->data[i] = temp;
+	}else{
+		for (size_t i = L->len-1; L->data[i] >X ; i--)
+		{
+			L->data[i+1] = L->data[i];
+
+		}
+		L->data[i+1] = X;
+		L->len++;
+		
+	}
+
+}
 //王道考研第10题
 /*设将n(n>1)个整数放到一维数组R中。设计一个在时间和空间两方面都尽可能高效的算法，将R中保存的序列循环左移P（0<P<N）个位置，即将R中的数据由（X0，X1，X3，……，Xn-1）变换为（Xp，Xp+1，Xp+2，……，Xp-1）.要求：
    （1）给出算法的基本设计思路
    （2）根据设计思想，采用C或者C++或java语言描述算法，关键之处给出注释。
    （3）说明你所设计的算法的时间复杂度和空间复杂度。
 */
+bool leftM(ListPointer L,int p){
+	int mid = L->len/2;
+	for (size_t i = 0; i < L->len/2; i++)
+	{
+		int temp = L->data[i];
+		L->data[i] = L->data[L->len-1-i];
+		L->data[L->len-1-i] = temp;
+		
+	}
+	for (size_t i = 0; i < count; i++)
+	{
+		
+		/* code */
+	}
+	
+	
+	
+}
+
 //王道考研第11题
 /*一个长度为L的升序序列S，处在第[L/2]个位置的数称为S的中位数。例如，若序列S1 = （11，13，15，17，19），则S1的中位数是15，两个序列的中位数是含他们所有元素的升序序列的中位数，例如若S2（2，4，6，8，20）
 ，则S1和S2中位数是11.现在有两个等长升序序列A和B，试设计一个在时间和空间两方面都尽可能高效的算法，找出两个序列A和B的中位数。要求：
@@ -268,7 +367,6 @@ bool deleteRepeat(ListPointer lp){
    */
   //王道考研第13题
   /*
-  
   给定一个含n个整数的数组，请设计一个在时间上尽可能高效的算法，找出数组中未出现的最小正整数。例如：数组{-5，3，2，3}中未出现的最小正整数是1：数组{1，2，3}中未出现的最小正整数是4，要求：
   （1）给出算法的基本设计思路
    （2）根据设计思想，采用C或者C++或java语言描述算法，关键之处给出注释。
