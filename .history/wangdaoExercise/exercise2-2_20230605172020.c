@@ -199,18 +199,16 @@ ListPointer delIncreaseOrder(ListPointer l){
     while (l->next!=NULL)
     {
         r = l->next->next;
-        while (r->next!=NULL)
+        while (r!=NULL)
         {
-            
-            if (r->next->data<min->data)
+            if (r->data<min->data)
             {
-                prep =r;
-                min = r->next;
+                /* code */
             }
+            
             /* code */
         }
-        prep->next = r->next->next;
-        free(min);
+        
     }
     
     

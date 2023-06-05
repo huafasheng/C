@@ -133,88 +133,11 @@ ListPointer delRange(ListPointer l,ElemType x,ElemType y){
         p = p->next;
         }
     }
-    return l;
 }
 //给定两个单链表，编写算法找出两个链表的公共结点
-ListPointer findpublicNode(ListPointer l,ListPointer h){
-    ElemType ln = 0;
-    ElemType hn = 0;
-    ListPointer x = MakeEmpty();
-    ListPointer y = MakeEmpty();
-    x= l;
-    y = h;
-    while (x!=NULL)
-    {
-        x = x->next;
-        ln++;
-    }
-     while (y!=NULL)
-    {
-        y = y->next;
-        hn++;
-    }
-    x=l;
-    y=h;
-    if(ln>hn){
-        int d =ln-hn;
-        while (d>0)
-        {
-            x = x->next;
-            d--;
-            /* code */
-        }
-    }
-    if(ln<hn){
-        int d =hn-ln;
-        while (d>0)
-        {
-            y = y->next;
-            d--;
-            /* code */
-        }
-    }
-    while (y!=NULL&&x!=NULL)
-    {
-        if(x==y){
-            return x;
-        }
-        x = x->next;
-        y=y->next;
-        /* code */
-    }
 
-}
 /*给定一个带表头结点的单链表，设head为头指针，结点结构为(data,next)，data为整形元素，next为指针，
-试写出算法：按照递增次序输出单链表中各结点的数据元素，并释放结点所占的存储空间（要求：不允许使用数组作为辅助空间）*/
-/**
- * @brief 
- * 
- */
-ListPointer delIncreaseOrder(ListPointer l){
-    ListPointer prep = MakeEmpty();
-    ListPointer min  = MakeEmpty();
-    ListPointer r  = MakeEmpty();
-    min = l->next;
-    prep = l;
-    while (l->next!=NULL)
-    {
-        r = l->next->next;
-        while (r->next!=NULL)
-        {
-            
-            if (r->next->data<min->data)
-            {
-                prep =r;
-                min = r->next;
-            }
-            /* code */
-        }
-        prep->next = r->next->next;
-        free(min);
-    }
-    
-    
-}
+试写出算法：按照递增次序输出单链表中各结点的数据元素，并释放结点所占的存储空间（要求：不允许舒勇数组作为辅助空间）*/
 //将一个带头结点的单链表A分解为两个带头结点的单链表A和B使得A表中含有原表中序号为基数的元素，而B表中含有原表中序号为偶数的元素，且保持相对顺序不变
 //设C={a1,b1,a2,b2,…,an,bn}为线性表采用带头结点的hc单链表存放设计一个算法将其拆分为两个为两个线性表使得A={a1,a2,a3…,an},B={b1,b2,b3…bn}.
 //在一个递增有序的线性表中，有数值相同的元素存在。若存储的方式为单链表，设计算法去掉数值相同的元素使表中不再有重复元素

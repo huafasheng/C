@@ -209,7 +209,6 @@ ListPointer delIncreaseOrder(ListPointer l){
             }
             /* code */
         }
-        prep->next = r->next->next;
         free(min);
     }
     

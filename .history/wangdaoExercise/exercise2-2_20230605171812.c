@@ -193,24 +193,12 @@ ListPointer findpublicNode(ListPointer l,ListPointer h){
 ListPointer delIncreaseOrder(ListPointer l){
     ListPointer prep = MakeEmpty();
     ListPointer min  = MakeEmpty();
-    ListPointer r  = MakeEmpty();
+    ListPointer min  = MakeEmpty();
     min = l->next;
     prep = l;
     while (l->next!=NULL)
     {
-        r = l->next->next;
-        while (r->next!=NULL)
-        {
-            
-            if (r->next->data<min->data)
-            {
-                prep =r;
-                min = r->next;
-            }
-            /* code */
-        }
-        prep->next = r->next->next;
-        free(min);
+        
     }
     
     

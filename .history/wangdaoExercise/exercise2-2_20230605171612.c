@@ -187,32 +187,17 @@ ListPointer findpublicNode(ListPointer l,ListPointer h){
 /*给定一个带表头结点的单链表，设head为头指针，结点结构为(data,next)，data为整形元素，next为指针，
 试写出算法：按照递增次序输出单链表中各结点的数据元素，并释放结点所占的存储空间（要求：不允许使用数组作为辅助空间）*/
 /**
- * @brief 
+ * @brief 排序
+ * 输出，释放
  * 
  */
 ListPointer delIncreaseOrder(ListPointer l){
     ListPointer prep = MakeEmpty();
     ListPointer min  = MakeEmpty();
-    ListPointer r  = MakeEmpty();
-    min = l->next;
-    prep = l;
-    while (l->next!=NULL)
-    {
-        r = l->next->next;
-        while (r->next!=NULL)
-        {
-            
-            if (r->next->data<min->data)
-            {
-                prep =r;
-                min = r->next;
-            }
-            /* code */
-        }
-        prep->next = r->next->next;
-        free(min);
+    min = 
+    if(){
+
     }
-    
     
 }
 //将一个带头结点的单链表A分解为两个带头结点的单链表A和B使得A表中含有原表中序号为基数的元素，而B表中含有原表中序号为偶数的元素，且保持相对顺序不变

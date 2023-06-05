@@ -190,31 +190,6 @@ ListPointer findpublicNode(ListPointer l,ListPointer h){
  * @brief 
  * 
  */
-ListPointer delIncreaseOrder(ListPointer l){
-    ListPointer prep = MakeEmpty();
-    ListPointer min  = MakeEmpty();
-    ListPointer r  = MakeEmpty();
-    min = l->next;
-    prep = l;
-    while (l->next!=NULL)
-    {
-        r = l->next->next;
-        while (r->next!=NULL)
-        {
-            
-            if (r->next->data<min->data)
-            {
-                prep =r;
-                min = r->next;
-            }
-            /* code */
-        }
-        prep->next = r->next->next;
-        free(min);
-    }
-    
-    
-}
 //将一个带头结点的单链表A分解为两个带头结点的单链表A和B使得A表中含有原表中序号为基数的元素，而B表中含有原表中序号为偶数的元素，且保持相对顺序不变
 //设C={a1,b1,a2,b2,…,an,bn}为线性表采用带头结点的hc单链表存放设计一个算法将其拆分为两个为两个线性表使得A={a1,a2,a3…,an},B={b1,b2,b3…bn}.
 //在一个递增有序的线性表中，有数值相同的元素存在。若存储的方式为单链表，设计算法去掉数值相同的元素使表中不再有重复元素

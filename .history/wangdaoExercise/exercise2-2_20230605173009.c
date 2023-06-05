@@ -204,12 +204,10 @@ ListPointer delIncreaseOrder(ListPointer l){
             
             if (r->next->data<min->data)
             {
-                prep =r;
                 min = r->next;
             }
             /* code */
         }
-        prep->next = r->next->next;
         free(min);
     }
     
