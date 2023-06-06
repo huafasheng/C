@@ -216,10 +216,128 @@ ListPointer delIncreaseOrder(ListPointer l){
     
 }
 //将一个带头结点的单链表A分解为两个带头结点的单链表A和B使得A表中含有原表中序号为基数的元素，而B表中含有原表中序号为偶数的元素，且保持相对顺序不变
+/**
+ * @brief 计数
+ * 
+ */
+ListPointer separateA(ListPointer A){
+    ListPointer B = MakeEmpty();
+    ListPointer l = MakeEmpty();
+    B->data = NULL;
+    B->next=NULL;
+    B=B->next;
+    int m = 0;
+    l = A->next;
+    while (l!=NULL)
+    {
+        
+        if(m == 0){
+          B = A;
+        }else if(m%2 == 1){
+            A=l->next;
+        }else{
+            B->next = l->next;
+
+        }
+        m++;
+        l=l->next;
+        /* code */
+    }
+}
 //设C={a1,b1,a2,b2,…,an,bn}为线性表采用带头结点的hc单链表存放设计一个算法将其拆分为两个为两个线性表使得A={a1,a2,a3…,an},B={b1,b2,b3…bn}.
+ListPointer separateA(ListPointer hc){
+    ListPointer B = MakeEmpty();
+    ListPointer A = MakeEmpty();
+    B = hc;
+    A = hc;
+    int m = 0;
+    hc = hc->next;
+    while (hc!=NULL)
+    {
+        m++;
+        if(m%2 == 1){
+            A->next = hc;
+            A = A->next;
+        }else{
+            B->next=hc;
+            B=B->next;
+        }
+        hc = hc->next;
+        /* code */
+    }
+    
+
+}
 //在一个递增有序的线性表中，有数值相同的元素存在。若存储的方式为单链表，设计算法去掉数值相同的元素使表中不再有重复元素
+ListPointer delDuplicate(ListPointer hc){
+    ListPointer prep = MakeEmpty();
+    ListPointer p = MakeEmpty();
+    ListPointer d = MakeEmpty();
+    p = hc->next;
+    prep = hc;
+    while (p->next!=NULL)
+    {
+        if(p->data == p->next->data){
+            prep->next = p->next;
+            d = p;
+            p = p->next;
+            free(d);
+        }else{
+            p = p->next;
+        }
+        /* code */
+    }
+    return hc;
+    
+
+}
 //假设有两个按元素值递增次序排列的线性表，均以单链表形式存储。请编写算法将这两个单链表归并为按元素值递减次序排列的单链表，并要求利用原来两个单链表的结点存放归并后的单链表
+/**
+ * @brief 去掉B的头节点。A>B (A->next = B):
+ * 
+ * @param A 
+ * @param B 
+ * @return ListPointer 
+ */
+ListPointer combineTwo(ListPointer A,ListPointer B){
+    ListPointer preA  = MakeEmpty();
+    ListPointer preB  = MakeEmpty();
+    ListPointer result  = MakeEmpty();
+    preA = A;
+    preB = B;
+    B = B->next;
+    result = A;
+    A = A->next;
+    while (A!=NULL&&B!=NULL)
+    {
+        
+        if(A->data>B->data){
+            preB = B;
+            B = B->next;
+            preA =A;
+            A = A->next;
+            preA->next=preB;
+            preB->next = A;
+        }else{
+            preB = B;
+            B = B->next;
+            preA =A;
+            A = A->next;
+            preA->next=preB;
+            preB->next = A;
+        }
+
+        /* code */
+    }
+    
+
+   
+}
 //设A和B是两个带头结点的单链表，其中元素递增有序。设计一个算法从A和B中的公共元素产生链表C，要求不破坏A，B的结点。
+ListPointer combineTwoC(ListPointer A,ListPointer B){
+
+}
+
 //已知两个链表A，B分别表示两个集合，其元素递增排序，编制函数求A，B的交集，并存放于A链表中
 //两个链表A和B分别表示两个集合，其元素递增排列。设计一个算法，从A和B的公共元素中产生单链表C，要求不破坏A和B的节点
 //抽取升序A,B链表公共节点放入A中
@@ -229,6 +347,18 @@ ListPointer delIncreaseOrder(ListPointer l){
 //将最小的节点删除直到表空，最后删除头节点。
 //根据访问频度排序，相同频度最近一次访问排在最前。
 //输出倒数第K个节点对应的data。
+/**
+ * @brief 两种方法
+ * 1、遍历求链表长度，输出n-k处data
+ * 2、双指针，f先走K,f,s同步长行走，f为空时，s即为
+ * 
+ * @param l 
+ * @return ElemType 
+ */
+ElemType printK(ListPointer l){
+
+
+}
 //采用带头节点的单链表保存单词，单词后缀相同，可共享相同的后缀空间，设计算法，找找到相同后缀的其实位置。
 //单链表绝对值去重。
 
