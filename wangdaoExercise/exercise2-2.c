@@ -5,10 +5,17 @@
 #include "linkedList.h"
 //设计一个递归算法，删除不带头结点的单链表L中所有值为x的结点
 bool deleteX(ListPointer l,ElemType X){
-    if(l->next!=NULL){
-        
-        ListPointer p = l;
-        
+    ListPointer p;
+    if(l==NULL){
+        return NULL;
+    }
+    if(l->next==X){
+        p = l;
+        l=l->next;
+        free(p);
+        deleteX(l,X);
+    }else{
+        deleteX(l->next,X);
     }
     
 }
@@ -20,7 +27,7 @@ bool deleteX(ListPointer l,ElemType X){
         ListPointer p = l;
         if(l->data == X){
             free(p);
-            l = l->next 
+            l = l->next;
         }else{
             l=l->next;
         }
@@ -334,14 +341,111 @@ ListPointer combineTwo(ListPointer A,ListPointer B){
    
 }
 //设A和B是两个带头结点的单链表，其中元素递增有序。设计一个算法从A和B中的公共元素产生链表C，要求不破坏A，B的结点。
-ListPointer combineTwoC(ListPointer A,ListPointer B){
-
+ListPointer combineTwoC(ListPointer A,ListPointer B){ 
+    A = A->next;
+    B = B->next; 
+    ListPointer C = MakeEmpty();
+    
+    while (A!=NULL&&B!=NULL)
+    {
+        if(A->data<B->data){
+            A = A->data;
+        }else if(A->data>B->data){
+            B = B->data;
+        }else{
+            ListPointer r = MakeEmpty();
+            r = A->data;
+            C->next = r;
+            A = A->next;
+            B = B->next;
+        }
+    }
+    C->next = NULL;
+    return C;
 }
 
 //已知两个链表A，B分别表示两个集合，其元素递增排序，编制函数求A，B的交集，并存放于A链表中
-//两个链表A和B分别表示两个集合，其元素递增排列。设计一个算法，从A和B的公共元素中产生单链表C，要求不破坏A和B的节点
-//抽取升序A,B链表公共节点放入A中
+ListPointer getIntersection(ListPointer A,ListPointer B){
+    ListPointer Pa = MakeEmpty();
+    ListPointer Pb = MakeEmpty();
+    ListPointer Pc = MakeEmpty();
+    Pc = A;
+    Pa = A->next;
+    Pb = B->next;
+    while (Pa!=NULL&&Pb!=NULL)
+    {
+        if(Pa->data == Pb->data){
+            Pc->next = Pa;
+            Pc = Pa;
+            Pa = Pa->next;
+            ListPointer temp = MakeEmpty();
+            temp = Pb;
+            Pb = Pb->next;
+            free(temp);   
+        }else if(Pa->data<Pb->data){
+            ListPointer temp = MakeEmpty();
+            temp = Pa;
+            Pa = Pa->next;
+            free(temp);
+        }else{
+            ListPointer temp = MakeEmpty();
+            temp = Pb;
+            Pb = Pb->next;
+            free(temp);
+        }
+        /* code */
+    }
+    while (Pa!=NULL)
+    {
+        ListPointer temp = MakeEmpty();
+            temp = Pa;
+            Pa = Pa->next;
+            free(temp);
+        /* code */
+    }
+    while (Pb!=NULL)
+    {
+        ListPointer temp = MakeEmpty();
+            temp = Pb;
+            Pb = Pb->next;
+            free(temp);
+        /* code */
+    }
+    Pc->next = NULL;
+    free(B);
+    return A;
+}
 //判断b是否为a的连续子序列
+int pattern(ListPointer A,ListPointer B){
+    ListPointer PA = MakeEmpty();
+    ListPointer PB = MakeEmpty();
+    ListPointer pre = MakeEmpty();
+    PA = A;
+    PB = B;
+    pre = A;
+    while (PA!=NULL&&PB!=NULL)
+    {
+        if(PA->data == PB->data){
+            PA = PA->next;
+            PB = PB->next;
+        }else{
+            pre = pre->next;
+            PA = pre;
+            PB = B; 
+        }
+        /* code */
+    }
+    if(PB==NULL){
+            return 1;
+
+    }else{
+            return 0;
+
+    }
+    
+
+
+}
 //判断带头节点的循环双链表是否对称
 //将两个循环单链表合并为一个循环单链表。
 //将最小的节点删除直到表空，最后删除头节点。
@@ -391,7 +495,7 @@ ListPointer getRotatePosition(ListPointer l){
 
     
 
-
+    
 }
 //将链表折半插入，重新组织
 /**1、找到链表中间值
