@@ -447,9 +447,104 @@ int pattern(ListPointer A,ListPointer B){
 
 }
 //判断带头节点的循环双链表是否对称
+int Symmetry(DListPointer l){
+    DListPointer p = MakeEmpty();
+    DListPointer q = MakeEmpty();
+    p = l->next;
+    q = l->prior;
+    while (q!=p&&q->next!=p)
+    {
+        if(q->data ==p->next){
+            p = p->next;
+            q = q->prior;
+        
+        }else{
+            return 0;
+        }
+    }
+    return 1;
+}
 //将两个循环单链表合并为一个循环单链表。
+ListPointer link(ListPointer h1,ListPointer h2){
+     ListPointer q = MakeEmpty();
+     ListPointer p = MakeEmpty();
+    p = h1; 
+     while (p->next!= h1)
+     {
+        p = p->next;
+        /* code */
+     }
+     q = h2;
+     while (q!=NULL)
+     {
+        q = q->next;
+        /* code */
+     }
+     p->next = h2;
+     q->next = h1;
+     return h1;
+     
+     
+     
+}
 //将最小的节点删除直到表空，最后删除头节点。
+void delAll(ListPointer l){
+    ListPointer minp,min,p,pre;
+    while (l->next!=l)
+    {
+        p = l->next;
+        pre = l;
+        min = p;
+        minp = pre;
+        while (p!=l)
+        {
+            if(p->data<minp->data){
+                min = p;
+                minp = pre;
+
+            }
+            pre = p;
+            p = p->next;
+            /* code */
+        }
+        printf("%d",min->data);
+        minp->next = min->next;
+        free(min);
+        /* code */
+    }
+    free(l);
+
+}
 //根据访问频度排序，相同频度最近一次访问排在最前。
+DListPointer locate(DListPointer L,ElemType X){
+    DListPointer p = L->next,q;
+    while (p!=NULL&&p->data !=X)
+    {
+        p = p->next;
+        if(p!=NULL){
+            printf("不存在值为X的节点");
+        }else{
+            p->freq++;
+            if(p->next!=NULL){
+                p->next->prior = p->prior;
+            }
+            p->prior->next = p->next;
+            q = p->prior;
+            while (q!=L&&q->freq<=p->freq)
+            {
+                q = q->prior;
+                /* code */
+            } 
+            p->next = q->next;
+            q->next->prior = p;
+            p->prior = q;
+            q->next = p;
+            
+        }
+        /* code */
+    }
+    return p;
+    }
 //输出倒数第K个节点对应的data。
 /**
  * @brief 两种方法
@@ -459,12 +554,91 @@ int pattern(ListPointer A,ListPointer B){
  * @param l 
  * @return ElemType 
  */
-ElemType printK(ListPointer l){
+ElemType printK(ListPointer l,int k){
+    ListPointer p,q;
+    p = l->next;
+    q = l->next;
+    int count = 0;
+    while (p!=NULL)
+    {
+        if(count<k){
+        count++;
+        }else{
+            q = q->next;
+        }
+        p = p->next;
+        /* code  */
+    }
+    if(count<k){
+        return 0;
+    }else{
+        printf("%d",q->data);
+        return 1;
+    }
 
 
 }
 //采用带头节点的单链表保存单词，单词后缀相同，可共享相同的后缀空间，设计算法，找找到相同后缀的其实位置。
-//单链表绝对值去重。
+int listlen(ListPointer l){
+    int len = 0;
+    while (l->next!=NULL)
+    {
+        len++;
+        l = l->next;
+        /* code */
+    }
+    return len;
+}
+ListPointer find_addr(ListPointer str1,ListPointer str2){
+    int m,n;
+    ListPointer q,p;
+    m = listlen(str1);
+    n = listlen(str2);
+    for (p = str1; m>n; m--)
+    {
+        p = p->next;
+        /* code */
+    }
+    for (q = str2; m<n; n--)
+    {
+        q = q->next;
+        /* code */
+    }
+    while (p->next!=NULL&&p->next!=q->next)
+    {
+        p = p->next;
+        q = q->next;
+        /* code */
+    }
+    return p->next;
+    
+    
+
+}
+//单链表绝对值去重。 
+void removeabs(ListPointer l,int n){
+    ListPointer p = l,r;
+    int *q,m;
+    q = (int*) malloc(sizeof(int)*(n+1));
+    for (size_t i = 0; i < n+1; i++)
+    {
+        *(q+i) = 0;
+        /* code */
+    }
+    while (p->next!= NULL){
+        m = p->next->data>0?p->next->data:-p->next->data;
+        if(*(q+m)==0){
+            if(*(q+m)==0){
+              *(q+m) ==1;
+            }else{
+                r = p->next;
+                p->next = r->next;
+                free(r);
+            }
+        }
+    }
+    free(q);
+}
 
 //判断单链表是不是存在环。存在找到入口并返回，否则返回NULL
 /**
@@ -487,15 +661,14 @@ ListPointer getRotatePosition(ListPointer l){
     if(s==NULL||f->next!=NULL){
         return NULL;
     }
-    while ()
+    ListPointer p1,p2;
+    while (p1!=p2)
     {
+        p1 = p1->next;
+        p2 = p2->next;
         /* code */
     }
-    
-
-    
-
-    
+    return p1;
 }
 //将链表折半插入，重新组织
 /**1、找到链表中间值

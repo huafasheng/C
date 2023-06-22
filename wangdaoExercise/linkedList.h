@@ -8,7 +8,16 @@ typedef struct list
 	struct list *next;
     
 }linkedList;
-typedef  linkedList *ListPointer;
+typedef struct list
+{
+	ElemType data;
+  ElemType freq;
+	struct list *next;
+  struct list *prior;
+    
+}DlinkedList;
+typedef   linkedList *ListPointer;
+typedef   DlinkedList *DListPointer;
 ListPointer MakeEmpty();
 ListPointer FindKth(int K,ListPointer lL);
 ListPointer Find(ElemType X,ListPointer L);
